@@ -3,6 +3,7 @@ package com.vamsikodali.egen.Entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -15,7 +16,7 @@ public class Reading {
     private String vin;
     private String latitude;
     private String longitude;
-    private String timestamp;
+    private Date timestamp;
     private float fuelVolume;
     private float speed;
     private float engineHp;
@@ -24,7 +25,7 @@ public class Reading {
     private boolean cruiseControlOn;
     private float engineRpm;
     @OneToOne
-    private Tire tire;
+    private Tires tires;
 
     public String getId() {
         return id;
@@ -58,11 +59,11 @@ public class Reading {
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -122,11 +123,30 @@ public class Reading {
         this.engineRpm = engineRpm;
     }
 
-    public Tire getTire() {
-        return tire;
+    public Tires getTires() {
+        return tires;
     }
 
-    public void setTire(Tire tire) {
-        this.tire = tire;
+    public void setTire(Tires tires) {
+        this.tires = tires;
+    }
+
+    @Override
+    public String toString() {
+        return "Reading{" +
+                "id='" + id + '\'' +
+                ", vin='" + vin + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", timestamp=" + timestamp +
+                ", fuelVolume=" + fuelVolume +
+                ", speed=" + speed +
+                ", engineHp=" + engineHp +
+                ", checkEngineLightOn=" + checkEngineLightOn +
+                ", engineCoolantLow=" + engineCoolantLow +
+                ", cruiseControlOn=" + cruiseControlOn +
+                ", engineRpm=" + engineRpm +
+                ", tire=" + tires +
+                '}';
     }
 }

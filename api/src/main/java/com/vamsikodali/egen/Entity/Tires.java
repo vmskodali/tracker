@@ -1,21 +1,31 @@
 package com.vamsikodali.egen.Entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
-public class Tire {
+public class Tires {
     @Id
+    @Column(columnDefinition = "VARCHAR(36)")
     private String id;
     private int frontLeft;
     private int frontRight;
     private int rearLeft;
     private int rearRight;
-    public Tire() {
+
+    public Tires() {
         this.id = UUID.randomUUID().toString();
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getFrontLeft() {
         return frontLeft;
@@ -47,5 +57,16 @@ public class Tire {
 
     public void setRearRight(int rearRight) {
         this.rearRight = rearRight;
+    }
+
+    @Override
+    public String toString() {
+        return "Tires{" +
+                "id='" + id + '\'' +
+                ", frontLeft=" + frontLeft +
+                ", frontRight=" + frontRight +
+                ", rearLeft=" + rearLeft +
+                ", rearRight=" + rearRight +
+                '}';
     }
 }

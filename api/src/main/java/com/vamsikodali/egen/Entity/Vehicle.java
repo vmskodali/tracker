@@ -2,9 +2,14 @@ package com.vamsikodali.egen.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.UUID;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Employee.findAll", query = "SELECT veh FROM Vehicle veh ORDER BY veh.make DESC")
+})
 public class Vehicle {
     @Id
     private String vin;
