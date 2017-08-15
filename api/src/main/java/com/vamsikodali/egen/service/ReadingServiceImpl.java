@@ -40,7 +40,7 @@ public class ReadingServiceImpl implements ReadingService {
     public List<GeoLocation> findLocationByVehicle(String vin) {
         Vehicle existing = vehicleService.findOne(vin);
         if(existing == null) throw new ResourceNotFoundException("Correspoding car not found");
-        List<Reading> readings = findReadingsByVehicle(vin);
+        List<Reading> readings = findReadingsByVehicle(vin, 30);
         List<GeoLocation> locations = new ArrayList<GeoLocation>();
         if(readings != null)
             for(Reading reading : readings)
@@ -49,10 +49,10 @@ public class ReadingServiceImpl implements ReadingService {
     }
 
     @Transactional(readOnly = true)
-    public List<Reading> findReadingsByVehicle(String vin) {
+    public List<Reading> findReadingsByVehicle(String vin, int mins) {
         Vehicle existing = vehicleService.findOne(vin);
         if(existing == null) throw new ResourceNotFoundException("Correspoding car not found");
-        return repository.findReadingsByVehicle(vin);
+        return repository.findReadingsByVehicle(vin,mins);
     }
 
 }

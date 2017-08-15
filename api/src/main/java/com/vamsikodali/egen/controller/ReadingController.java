@@ -27,9 +27,14 @@ public class ReadingController {
         service.createReading(reading);
         return reading;
     }
-    @RequestMapping(method = RequestMethod.GET, value = "geolocation/vehicle/{vin}")
-    public List<GeoLocation> findAlertsByVehicle(@PathVariable("vin")String vin){
+    @RequestMapping(method = RequestMethod.GET, value = "/geolocation/vehicle/{vin}")
+    public List<GeoLocation> findLocationByVehicle(@PathVariable("vin")String vin){
         return service.findLocationByVehicle(vin);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/history",params = {"vin", "timeinmins"})
+    public List<Reading> findHistoryByVehicle(@RequestParam(value = "vin") String vin, @RequestParam(value = "timeinmins") int mins){
+        return service.findReadingsByVehicle(vin,mins);
     }
 
 

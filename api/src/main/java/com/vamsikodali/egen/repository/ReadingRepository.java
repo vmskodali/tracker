@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ReadingRepository {
     void createReading(Reading reading);
-    List<Reading> findReadingsByVehicle(String vin);
+    List<Reading> findReadingsByVehicle(String vin, int mins);
 
 }

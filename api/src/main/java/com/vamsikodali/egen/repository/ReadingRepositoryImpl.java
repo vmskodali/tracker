@@ -21,11 +21,12 @@ public class ReadingRepositoryImpl implements ReadingRepository {
         entityManager.persist(reading);
     }
 
-    public List<Reading> findReadingsByVehicle(String vin) {
+    public List<Reading> findReadingsByVehicle(String vin, int mins) {
         TypedQuery<Reading> query = entityManager.createQuery("SELECT r FROM Reading r where r.vin=:vin and r.timestamp>:timestamp ORDER BY r.timestamp DESC ",
                 Reading.class);
+        int secs = mins * 60;
         query.setParameter("vin", vin);
-        query.setParameter("timestamp", new Date(System.currentTimeMillis() - 1800 * 1000 ));
+        query.setParameter("timestamp", new Date(System.currentTimeMillis() - secs * 1000 ));
         return query.getResultList();
     }
 }
