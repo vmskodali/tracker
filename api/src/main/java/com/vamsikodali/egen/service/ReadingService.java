@@ -1,12 +1,12 @@
 package com.vamsikodali.egen.service;
 
-import com.vamsikodali.egen.Entity.Alert;
-import com.vamsikodali.egen.Entity.Reading;
-import com.vamsikodali.egen.Entity.Tires;
-import com.vamsikodali.egen.Entity.Vehicle;
+import com.vamsikodali.egen.Entity.*;
+
+import java.util.List;
 
 public interface ReadingService {
     Reading createReading(Reading reading);
-    void createAlert(Reading reading, Vehicle vehicle);
-    boolean isValidTirePressure(Tires tires);
+    List<GeoLocation> findLocationByVehicle(String vin);
+    List<Reading> findReadingsByVehicle(String vin);
+
 }

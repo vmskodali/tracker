@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReadingServiceImpl implements ReadingService {
@@ -17,6 +19,8 @@ public class ReadingServiceImpl implements ReadingService {
     ReadingRepository repository;
     @Autowired
     VehicleService vehicleService;
+    @Autowired
+    AlertService alertService;
 
     @Transactional
     public Reading createReading(Reading reading) {
@@ -26,35 +30,29 @@ public class ReadingServiceImpl implements ReadingService {
             Vehicle existing = vehicleService.findOne(reading.getVin());
             if(existing != null) {
                 repository.createReading(reading);
-                createAlert(reading, existing);
+                alertService.createAlert(reading, existing);
             }else throw new ResourceNotFoundException("Correspoding car not found");
         }
         return reading;
     }
-    @Transactional
-    public void createAlert(Reading reading, Vehicle vehicle){
-        if(reading.getEngineRpm() > vehicle.getRedLineRpm())
-            repository.createAlert(new Alert(vehicle, reading, Priority.HIGH, AlertType.ENGINERPM));
-        if(reading.getFuelVolume() < 0.1 * vehicle.getMaxFuelVolume())
-            repository.createAlert(new Alert(vehicle, reading, Priority.MEDIUM, AlertType.FUELVOLUME));
-        if(reading.isEngineCoolantLow())
-            repository.createAlert(new Alert(vehicle, reading, Priority.LOW, AlertType.ENGINECOOLANTLOW));
-        if(reading.isCheckEngineLightOn())
-            repository.createAlert(new Alert(vehicle, reading, Priority.LOW, AlertType.ENGINELIGHTON));
-        if(!isValidTirePressure(reading.getTires()))
-            repository.createAlert(new Alert(vehicle, reading, Priority.LOW, AlertType.TIREPRESSURE));
 
+    @Transactional(readOnly = true)
+    public List<GeoLocation> findLocationByVehicle(String vin) {
+        Vehicle existing = vehicleService.findOne(vin);
+        if(existing == null) throw new ResourceNotFoundException("Correspoding car not found");
+        List<Reading> readings = findReadingsByVehicle(vin);
+        List<GeoLocation> locations = new ArrayList<GeoLocation>();
+        if(readings != null)
+            for(Reading reading : readings)
+                locations.add(new GeoLocation(reading.getLatitude(), reading.getLongitude(), reading.getTimestamp()));
+        return locations;
     }
 
-    public boolean isValidTirePressure(Tires tires){
-        if(tires.getFrontLeft() > 36 || tires.getFrontLeft() < 32)
-            return false;
-        else if(tires.getFrontRight() > 36 || tires.getFrontRight() < 32)
-            return false;
-        if(tires.getRearLeft() > 36 || tires.getRearLeft() < 32)
-            return false;
-        else if(tires.getRearRight() > 36 || tires.getRearRight() < 32)
-            return false;
-        else return true;
+    @Transactional(readOnly = true)
+    public List<Reading> findReadingsByVehicle(String vin) {
+        Vehicle existing = vehicleService.findOne(vin);
+        if(existing == null) throw new ResourceNotFoundException("Correspoding car not found");
+        return repository.findReadingsByVehicle(vin);
     }
+
 }

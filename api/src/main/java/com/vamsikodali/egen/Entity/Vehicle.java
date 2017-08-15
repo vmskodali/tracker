@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Employee.findAll", query = "SELECT veh FROM Vehicle veh ORDER BY veh.make DESC")
+        @NamedQuery(name = "Vehicle.findAll", query = "SELECT veh FROM Vehicle veh ORDER BY veh.make DESC")
 })
 public class Vehicle {
     @Id

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public class ReadingRepositoryImpl implements ReadingRepository {
@@ -18,7 +21,11 @@ public class ReadingRepositoryImpl implements ReadingRepository {
         entityManager.persist(reading);
     }
 
-    public void createAlert(Alert alert) {
-        entityManager.persist(alert);
+    public List<Reading> findReadingsByVehicle(String vin) {
+        TypedQuery<Reading> query = entityManager.createQuery("SELECT r FROM Reading r where r.vin=:vin and r.timestamp>:timestamp ORDER BY r.timestamp DESC ",
+                Reading.class);
+        query.setParameter("vin", vin);
+        query.setParameter("timestamp", new Date(System.currentTimeMillis() - 1800 * 1000 ));
+        return query.getResultList();
     }
 }

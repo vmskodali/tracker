@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "vehicles")
+@RequestMapping(value = "/vehicles")
 public class VehicleController {
 
 

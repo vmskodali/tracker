@@ -4,19 +4,22 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+
 @Entity
 public class Alert {
     @Id
     private String id;
     @ManyToOne
+    @JoinColumn(name = "vehiclevin", nullable = false)
     private Vehicle vehicle;
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private AlertType type;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "readingid", nullable = false)
     private Reading reading;
 
     public Alert() {
