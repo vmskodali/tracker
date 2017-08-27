@@ -1,0 +1,36 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Time</th>
+    <th *ngIf="readingService.readingType ==='speed'">Speed</th>
+    <th *ngIf="readingService.readingType ==='engineHp'">Engine Hp</th>
+    <th *ngIf="readingService.readingType ==='checkEngineLightOn'">Check Engine Light On</th>
+    <th *ngIf="readingService.readingType ==='engineCoolantLow'">Engine Coolant Low</th>
+    <th *ngIf="readingService.readingType ==='cruiseControlOn'">Cruise Control On</th>
+    <th *ngIf="readingService.readingType ==='engineRpm'">Engine Rpm</th>
+    <th *ngIf="readingService.readingType ==='tires'">Front Left</th>
+    <th *ngIf="readingService.readingType ==='tires'">Front Right</th>
+    <th *ngIf="readingService.readingType ==='tires'">Rear Left</th>
+    <th *ngIf="readingService.readingType ==='tires'">Rear Right</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let reading of readingService.readings">
+    <td>{{reading.timestamp | date: "medium"}}</td>
+    <td *ngIf="readingService.readingType ==='fuelVolume'">{{reading.fuelVolume}}</td>
+    <td *ngIf="readingService.readingType ==='speed'">{{reading.speed}}</td>
+    <td *ngIf="readingService.readingType ==='engineHp'">{{reading.engineHp}}</td>
+    <td *ngIf="readingService.readingType ==='checkEngineLightOn'">{{reading.checkEngineLightOn}}</td>
+    <td *ngIf="readingService.readingType ==='engineCoolantLow'">{{reading.engineCoolantLow}}</td>
+    <td *ngIf="readingService.readingType ==='cruiseControlOn'">{{reading.cruiseControlOn}}</td>
+    <td *ngIf="readingService.readingType ==='engineRpm'">{{reading.engineRpm}}</td>
+    <td *ngIf="readingService.readingType ==='tires'">{{reading.tires.frontLeft}}</td>
+    <td *ngIf="readingService.readingType ==='tires'">{{reading.tires.frontRight}}</td>
+    <td *ngIf="readingService.readingType ==='tires'">{{reading.tires.rearLeft}}</td>
+    <td *ngIf="readingService.readingType ==='tires'">{{reading.tires.rearRight}}</td>
+  </tr>
+  </tbody>
+</table>
+
+

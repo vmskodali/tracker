@@ -1,0 +1,27 @@
+<p>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Vin</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Year</th>
+      <th>Red Line RPM</th>
+      <th>Max Fuel Volume</th>
+      <th>Last Service Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let vehicle of vehicles">
+      <td><a [routerLink]="['/vehicles', vehicle.vin]">{{vehicle.vin}}</a></td>
+      <td>{{vehicle.make}}</td>
+      <td>{{vehicle.model}}</td>
+      <td>{{vehicle.year}}</td>
+      <td>{{vehicle.redLineRpm}}</td>
+      <td>{{vehicle.maxFuelVolume}}</td>
+      <td>{{vehicle.lastServiceDate}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+

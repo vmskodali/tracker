@@ -1,0 +1,29 @@
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="1"
+  [disableDefaultUI]="false"
+  [zoomControl]="false">
+
+  <agm-marker
+    *ngFor="let m of readingService.geoLocations"
+    [latitude]="m.latitude"
+    [longitude]="m.longitude"
+    [label]=""
+    [markerDraggable]="false">
+    {{logToConsole()}}
+
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+
+  </agm-marker>
+
+  <!--<agm-circle [latitude]="lat + 0.3" [longitude]="lng"-->
+                          <!--[radius]="5000"-->
+                          <!--[fillColor]="'red'"-->
+                          <!--[circleDraggable]="true"-->
+                          <!--[editable]="true">-->
+  <!--</agm-circle>-->
+
+</agm-map>
