@@ -1,0 +1,54 @@
+
+<div class="container">
+  <div class="row">
+      <div class="col-sm-4">
+
+      <form name="vehicle-form" (ngSubmit)="getReadings()" #vehicleForm="ngForm">
+        <div class="container">
+          <div class="row">
+            <div class="column">
+              <select id="readingType" #vehicleReadingType="ngModel" required class="form-control" [(ngModel)]="readingType"
+                      name="readingType" value = "Select Reading">
+                <option selected="selected">Select Reading</option>
+                <option value = "fuelVolume">Fuel Volume</option>
+                <option value = "speed">Speed</option>
+                <option value = "engineHp">Engine Hp</option>
+                <option value = "checkEngineLightOn">Check Engine Light</option>
+                <option value = "engineCoolantLow">Check Engine Coolant</option>
+                <option value = "cruiseControlOn">Is Cruise Control On</option>
+                <option value = "engineRpm">Engine RPM</option>
+                <option value = "tires">Tire Pressure</option>
+              </select>
+            </div>
+
+            <div class="column">
+              <input type="number" #vehicleReadingTime="ngModel" required placeholder="Enter time in minutes" [(ngModel)]="readingTime" name = readingTime
+                     class="form-control" id="readingTime">
+              <div *ngIf="vehicleReadingTime.errors && (vehicleReadingTime.dirty || vehicleReadingTime.touched) && !check_if_is_integer(vehicleReadingTime.value)" class="error">
+                <p [hidden]="!vehicleReadingTime.errors.required">Reading Time is required</p>
+                <p [hidden]="check_if_is_integer(vehicleReadingTime.value)">Time should be an Integer</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <button type="submit" class="btn btn-primary" [disabled]="!vehicleForm.valid || !check_if_is_integer(vehicleReadingTime.value)">Get Reading</button>
+          </div>
+        </div>
+      </form>
+      </div>
+
+      <div class="col-sm-4">
+        <button class="btn" (click)="isGeoSelected = true; isAlertSelected = false; isReadingsSelected = false" name = "geoLocations">Get Geo Location</button>
+      </div>
+      <div class="col-sm-4">
+        <button class="btn" (click)="isGeoSelected = false; isAlertSelected = true; isReadingsSelected = false" name = "alerts">Get Alerts</button>
+      </div>
+    </div>
+    <div class="row">
+      <app-vehicle-readings *ngIf="isReadingsSelected"></app-vehicle-readings>
+      <app-google-maps *ngIf="isGeoSelected"></app-google-maps>
+      <app-alert-detail *ngIf="isAlertSelected"></app-alert-detail>
+    </div>
+</div>
+

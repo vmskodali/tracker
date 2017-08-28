@@ -1,0 +1,39 @@
+<p>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Proirity</th>
+    <th>Alert time</th>
+    <th>Alert Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let alert of curAlertPage; let j = index">
+    <td>{{alert.priority}}</td>
+    <td>{{alert.reading.timestamp | date: "medium"}}</td>
+    <td>{{alert.type}}</td>
+    <td *ngIf="alert.priority ==='HIGH'">
+      <div class="container">
+        <div class="row">
+          <div class="column">
+            <input type="email" email #userEmail="ngModel" [(ngModel)]="email[j]" name="email" class="form-control"
+                   id="email" placeholder="Enter Email">
+            <div *ngIf="userEmail.errors && (userEmail.dirty || userEmail.touched)" class="error">
+              <p [hidden]="!userEmail.errors.email">A valid email is required</p>
+            </div>
+          </div>
+          <div class="column">
+            <button class="btn" (click)= "sendAlert(j)" [disabled] = "userEmail.errors">Send Alert</button>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let subAlerts of displayedAlerts; let i = index"><a class="page-link" (click)="page(i)">{{i+1}}</a></li>
+  </ul>
+</nav>
