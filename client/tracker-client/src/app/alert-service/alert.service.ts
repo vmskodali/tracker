@@ -11,12 +11,27 @@ private _goingToBeDisplayed;
 
 
   getAlertsByVin(vin): Observable<any> {
+    console.log(`http://localhost:8080/api/alerts/vehicle/${vin}`);
     return this.http.get(`http://localhost:8080/api/alerts/vehicle/${vin}`)
       .map(response => response.json())
       .catch(error => Observable.throw(error.statusText));
   }
+
+  getHighAlerts(): Observable<any> {
+    console.log(`http://localhost:8080/api/alerts/highAlerts`);
+    return this.http.get(`http://localhost:8080/api/alerts/highAlerts`)
+      .map(response => response.json())
+      .catch(error => Observable.throw(error.statusText));
+  }
+
   setAlerts() {
     this.getAlertsByVin(this.vin).subscribe(alerts => this.alerts = alerts);
+  }
+
+  sendAlertMail(email) {
+    this.http.get(`http://localhost:8080/api/sendAlert/${email}`)
+      .map(response => response.json())
+      .catch(error => Observable.throw(error.statusText));
   }
 
   get alerts() {

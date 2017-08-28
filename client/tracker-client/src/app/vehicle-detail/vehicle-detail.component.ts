@@ -40,5 +40,16 @@ export class VehicleDetailComponent implements OnInit {
     this.readingService.timeinmins = this.readingTime;
     this.readingService.assignReadings();
   }
+  check_if_is_integer(value) {
+    if ((parseFloat(value) === parseInt(value, 0)) && !isNaN(value)) {
+      // I can have spacespacespace1 - which is 1 and validators pases but
+      // spacespacespace doesn't - which is what i wanted.
+      // 1space2 doesn't pass - good
+      // of course, when saving data you do another parseInt.
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

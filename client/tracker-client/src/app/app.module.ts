@@ -14,13 +14,17 @@ import { VehicleReadingsComponent } from './vehicle-readings/vehicle-readings.co
 import {ReadingsService} from "./readings-service/readings.service";
 import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
+import { ParentComponent } from './parent/parent.component';
+import { VehicleParentComponent } from './vehicle-parent/vehicle-parent.component';
+import { HighAlertComponent } from './high-alert/high-alert.component';
 const appRoutes: Routes = [
   {path: 'vehicles/:vin', component: VehicleDetailComponent},
-  {path: 'vehicles', component: VehicleListComponent},
-  {path: 'alerts/vehicle/:vin', component: AlertDetailComponent},
+  {path: 'alerts/vehicle/', component: AlertDetailComponent},
   {path: 'readings/history', component: VehicleReadingsComponent},
   {path: 'maps', component: GoogleMapsComponent},
-  {path: '', redirectTo: '/vehicles', pathMatch: 'full'}
+  {path: '', component: ParentComponent, children: [{path: 'vehicles', component: VehicleListComponent},
+    {path: 'highAlerts', component: HighAlertComponent}
+  ]}
 ];
 
 @NgModule({
@@ -30,7 +34,10 @@ const appRoutes: Routes = [
     VehicleListComponent,
     AlertDetailComponent,
     VehicleReadingsComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    ParentComponent,
+    VehicleParentComponent,
+    HighAlertComponent
   ],
   imports: [
     BrowserModule,

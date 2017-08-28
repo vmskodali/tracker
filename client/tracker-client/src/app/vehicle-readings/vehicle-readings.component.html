@@ -16,7 +16,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let reading of readingService.readings">
+  <tr *ngFor="let reading of readingService.curReading">
     <td>{{reading.timestamp | date: "medium"}}</td>
     <td *ngIf="readingService.readingType ==='fuelVolume'">{{reading.fuelVolume}}</td>
     <td *ngIf="readingService.readingType ==='speed'">{{reading.speed}}</td>
@@ -32,5 +32,10 @@
   </tr>
   </tbody>
 </table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let reading of readingService.curPageReading; let i = index"><a class="page-link" (click)="readingService.readingPage(i)">{{i+1}}</a></li>
+  </ul>
+</nav>
 
 

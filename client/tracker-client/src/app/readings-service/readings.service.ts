@@ -9,7 +9,8 @@ export class ReadingsService {
   private _vin;
   private _readings;
   private _geoLocations;
-  readings12: any[];
+  private _curPageReading = new Array();
+  curReading;
 
   constructor(private http: Http) { }
   getReadingsByVin(vin: string, time: string): Observable<any[]> {
@@ -35,8 +36,18 @@ export class ReadingsService {
     this.getReadingsByVin(this.vin, this.timeinmins)
       .subscribe(readings => {
         this.readings = readings;
+        let i;
+        for (i = 0; i < readings.length / 10 - 1; i++) {
+          this.curPageReading[i] = readings.slice(i * 10 , i * 10 + 9);
+        }
+        this.curPageReading[i] = readings.slice(i * 10 , readings.length - 1);
+        this.curReading = this.curPageReading[0];
         console.log(readings);
       });
+  }
+
+  readingPage(i) {
+    this.curReading = this.curPageReading[i];
   }
 
   get readingType() {
@@ -77,5 +88,13 @@ export class ReadingsService {
 
   set geoLocations(value) {
     this._geoLocations = value;
+  }
+
+  get curPageReading(): any[] {
+    return this._curPageReading;
+  }
+
+  set curPageReading(value: any[]) {
+    this._curPageReading = value;
   }
 }

@@ -5,6 +5,7 @@ import {ReadingsService} from "../readings-service/readings.service";
   styles: [`
     agm-map {
       height: 300px;
+      width: 700px;
     }
   `],
   templateUrl: './google-maps.component.html'
@@ -16,8 +17,8 @@ export class GoogleMapsComponent implements OnInit {
 
   ngOnInit() {
   }
-  logToConsole() {
-    console.log('test');
+  logToConsole(m) {
+    console.log(m);
   }
 
 }

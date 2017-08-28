@@ -13,6 +13,7 @@ export class AlertDetailComponent implements OnInit {
   displayedAlerts = new Array();
   pages = new Array();
   curAlertPage;
+  email = new Array();
   constructor(private route: ActivatedRoute, private alertService: AlertService) {
 
   }
@@ -42,6 +43,10 @@ export class AlertDetailComponent implements OnInit {
 
   page(i: number) {
     this.curAlertPage = this.displayedAlerts[i];
+  }
+  sendAlert(i: number) {
+    console.log(`email : ${this.email[i]}`);
+    this.alertService.sendAlertMail(this.email[i]);
   }
 }
 
