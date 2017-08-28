@@ -52,4 +52,18 @@ public class AlertServiceImpl implements AlertService{
         if(vehicle == null) throw new ResourceNotFoundException("Vehicle with id " + vin + " is not being tracked");
         return repository.findAlertsByVehicle(vin);
     }
+
+    public List<HighAlerts> findAlertsCount() {
+        return repository.findHighAlertCount();
+    }
+
+    public void sendAlert(String email) {
+
+        try {
+            mailSender.send(email, "SLOW DOWN!!!!", "Your Engine RPM Exceeded maximum Limit");
+            System.out.println(email);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }

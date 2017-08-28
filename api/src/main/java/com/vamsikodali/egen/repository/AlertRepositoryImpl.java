@@ -26,6 +26,14 @@ public class AlertRepositoryImpl implements AlertRepository {
         query.setParameter("timestamp", new Date(System.currentTimeMillis() - 7200 * 1000));
         return query.getResultList();
     }
+    public List<HighAlerts> findHighAlertCount() {
+        TypedQuery<HighAlerts> query = entityManager.createQuery("SELECT NEW com.vamsikodali.egen.Entity.HighAlerts(COUNT(v.vin),  v.vin) FROM Alert alr join alr.vehicle v join alr.reading r where alr.priority = 'HIGH' and r.timestamp>:timestamp GROUP BY v.vin ORDER BY v.vin",
+                HighAlerts.class);
+        //TypedQuery<Alert> query = entityManager.createQuery("SELECT v.vin, count(*) as count  FROM Alert alr join alr.vehicle v join alr.reading r where alr.priority = 'HIGH' and r.timestamp>:timestamp group by BY v.vin",Alert.class);
+
+        query.setParameter("timestamp", new Date(System.currentTimeMillis() - 7200 * 1000));
+        return query.getResultList();
+    }
 
     public List<Alert> findAlertsByVehicle(String vin) {
         TypedQuery<Alert> query = entityManager.createQuery("SELECT alr FROM Alert alr join alr.vehicle v join alr.reading r where v.vin=:vin",

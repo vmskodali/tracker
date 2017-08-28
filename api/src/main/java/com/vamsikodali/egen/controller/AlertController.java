@@ -25,4 +25,16 @@ public class AlertController {
     public  List<Alert> findAlertsByVehicle(@PathVariable("vin")String vin){
         return service.findAlertsByVehicle(vin);
     }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(method = RequestMethod.GET, value = "/vehicle/{vin}")
+    public  List<Alert> findAlertsByVehicle(@PathVariable("vin")String vin){
+        return service.findAlertsByVehicle(vin);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(method = RequestMethod.GET, value = "/sendAlert/{email}")
+    public  void sendAlert(@PathVariable("email")String email){
+        service.findAlertsByVehicle(email);
+    }
 }

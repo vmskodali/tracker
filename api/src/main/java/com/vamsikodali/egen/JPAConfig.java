@@ -39,7 +39,7 @@ public class JPAConfig {
         ds.setUrl(
                 "jdbc:mysql://localhost:3306/tracker_db?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         ds.setUsername("root");
-        ds.setPassword("password");
+        ds.setPassword("password1");
         return ds;
     }
 

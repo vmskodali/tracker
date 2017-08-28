@@ -12,4 +12,6 @@ public interface AlertService {
     boolean isValidTirePressure(Tires tires);
     List<Alert> findAllAlerts();
     List<Alert> findAlertsByVehicle(String vin);
+    List<HighAlerts> findAlertsCount();
+    void sendAlert(String email);
 }

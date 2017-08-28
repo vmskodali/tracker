@@ -8,4 +8,5 @@ public interface AlertRepository {
     void createAlert(Alert alert);
     List<Alert> findAllAlerts();
     List<Alert> findAlertsByVehicle(String vin);
+    List<HighAlerts> findHighAlertCount();
 }
